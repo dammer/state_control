@@ -1,10 +1,10 @@
 # StateControl
 
-This shard provides a flexible state machine implementation in [Crystal](https://crystal-lang.org) programming language.
+This [shard](https://crystal-lang.org/reference/1.7/index.html#shards) provides a flexible state machine implementation in [Crystal](https://crystal-lang.org) programming language.
 
-You can use any enum to describe different states and use the StateControl(T) class with that enum to create your own specific state machine class.
+You can use any `enum` to describe different states and use the `StateControl(T)` class with that enum to create your own specific state machine class.
 
-The StateControl(T) class allows you to manage transitions between states, track transition history, and monitor time spent in each state. By using this shard, you have the flexibility to define and use your own enums and state machine classes tailored to your specific needs.
+The `StateControl(T)` class allows you to manage transitions between states, track transition history, and monitor time spent in each state. By using this shard, you have the flexibility to define and use your own enums and state machine classes tailored to your specific needs.
 
 ## Installation
 
