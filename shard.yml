@@ -1,0 +1,9 @@
+name: state_control
+version: 0.1.0
+
+authors:
+  - Damir Sharipov <dammer2k@gmail.com>
+
+crystal: 1.7.2
+
+license: MIT
