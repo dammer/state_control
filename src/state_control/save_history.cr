@@ -31,7 +31,7 @@ module StateControl::SaveHistory
   # │ 3 │    Red     │ YYYY-MM-DDT10:13:02.254131795Z │         ∞          │
   # └───┴────────────┴────────────────────────────────┴────────────────────┘
   def inspect_timeline(io = STDOUT)
-    table = Table.new(%w{# State Time Spent})
+    table = AsciiTable.new(%w{# State Time Spent})
     timeline.each_with_index do |(state, duration), idx|
       duration_text = duration.infinite? ? "∞" : duration.seconds.to_s
       time_text = @timeline[idx].to_rfc3339(fraction_digits: 9)
