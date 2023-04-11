@@ -1,8 +1,7 @@
 require "json"
+require "ascii_table"
 require "./state_control/router.cr"
 require "./state_control/save_history.cr"
-
-# TODO: Write documentation for `StateControl`
 
 class StateControl(T)
   VERSION = "0.1.0"

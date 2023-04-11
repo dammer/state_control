@@ -1,5 +1,3 @@
-require "./table.cr"
-
 class StateControl(T)
   module Router(T)
     private def route_enable(**options)
@@ -56,7 +54,7 @@ class StateControl(T)
     end
 
     def inspect_routes(io = STDOUT)
-      table = Table.new(T.names.unshift("->"))
+      table = AsciiTable.new(T.names.unshift("->"))
       T.each do |name|
         row = [name.to_s]
         T.each { |col| row << (route?(name, col) ? "X" : "") }
