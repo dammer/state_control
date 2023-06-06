@@ -35,8 +35,12 @@ class StateControl(T)
   end
 
   def go(dest : T, current : T = state)
+    go(dest, current) { }
+  end
+
+  def go(dest : T, current : T = state, &success_block : Proc(T, T, Nil))
     return false unless can?(dest, current)
-    transite_to(current, dest)
+    transite_to(current, dest, &success_block)
   end
 
   def possible_routes(current = state)
@@ -65,7 +69,7 @@ class StateControl(T)
     prev, succ = @state.compare_and_set(src, dest)
     if succ
       on_success(prev, dest)
-      # run_callbacks_on(prev, dest)
+      yield prev, dest
     end
     succ
   end

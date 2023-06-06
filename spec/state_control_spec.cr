@@ -113,4 +113,25 @@ describe StateControl do
     s = Specs::JsonTest.from_json(%q<{"test_name":"test_1","state_control":"yellow"}>)
     s.state_control.state.yellow?.should be_true
   end
+
+  it "can pass on_success block when go call" do
+    sc = Specs::TestStatusControl.new
+    var = false
+    sc.go(:yellow) do
+      var = true
+    end
+    var.should be_false
+    sc.go(:green) do
+      var = true
+    end
+    var.should be_true
+    arg0 = nil
+    arg1 = nil
+    sc.go(:blink_green) do |prev, current|
+      arg0 = prev
+      arg1 = current
+    end
+    arg0.try(&.green?).should be_true
+    arg1.try(&.blink_green?).should be_true
+  end
 end
