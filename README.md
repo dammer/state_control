@@ -69,14 +69,14 @@ class TestStatusControl < StateControl(TestStatus)
   # │ BlinkGreen │            │     X      │            │            │
   # └────────────┴────────────┴────────────┴────────────┴────────────┘
 
-  # custom handler on success transition by the route (optional)
+  # permanent custom handler on success transition by the route (optional)
   protected def on_success(prev, current)
-    # `super` call is required if `on_succes` defined for compatibility  
+    # `super` call is required if `on_succes` defined for compatibility
     super
     # do something here
     puts "transited from: #{prev} to: #{current}"
     # or or something useful ;)
-    # emit StateChangedEvent, self, prev, current, async: true 
+    # emit StateChangedEvent, prev, current
   end
 end
 
@@ -127,6 +127,20 @@ state_control.inspect_timeline
 # │ 3 │   Green    │ 2023-04-06T16:23:30.965899245Z │         ∞          │
 # └───┴────────────┴────────────────────────────────┴────────────────────┘
 
+# pass once block on success transition
+var = false
+
+def blink_green_success
+  puts "current state Blink Green!"
+end
+
+state_control.go(:blink_green) do
+  blink_green_success
+  var = true
+end
+
+var # => true
+
 # JSON::Serializable compatible
 requie "json"
 
@@ -142,9 +156,9 @@ end
 
 # serialization
 json_test = JsonTest.new("json_1")
-json_test.state_control.go(:red) # => false                                                
+json_test.state_control.go(:red) # => false
 string = json_test.to_json
-string.should eq %q<{"test_name":"json_1","state_control":"yellow"}>   
+string.should eq %q<{"test_name":"json_1","state_control":"yellow"}>
 
 # deserialization
 json_test = JsonTest.from_json(string)
